@@ -1,7 +1,10 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+
 import "./App.scss"
+
+import Modal from 'react-bootstrap/Modal'
 
 let urlApi = "https://get-talent-75b1b-default-rtdb.firebaseio.com/.json";
 
@@ -11,11 +14,13 @@ const pattern =
 
 export default function App() {
 
+  // Inicializar el estado de error y éxito
+  const [success, setSuccess] = React.useState(false);
+
   // Error
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   // Inicializar el estado del formulario en blanco
-  const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -33,7 +38,6 @@ export default function App() {
   }
 
   // Esto es para el checkbox
-
   const [agree, setAgree] = useState(false);
 
   const checkboxHandler = () => {
@@ -48,11 +52,17 @@ export default function App() {
     alert('The buttion is clickable!');
   };
 
-  
-  // Inicializar el estado de error y éxito
-  /* const [error, setError] = React.useState('');*/
-  const [success, setSuccess] = React.useState(false);
 
+  // Esto es para el Modal
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+  }
+
+  const handleShow = () => setShow(true);
+
+  
   // GET
   const axios = require('axios').default;
 
@@ -77,6 +87,7 @@ export default function App() {
     try {
         const resp = await axios.post(urlApi, newPost);
         console.log(resp.data);
+        
     } catch (err) {
         // Handle Error Here
         console.error(err);
@@ -94,7 +105,6 @@ export default function App() {
 
     // Validar el formulario
     if (
-      name.trim() === "" ||
       email.trim() === "" ||
       password.trim() === "" ||
       confirmPassword.trim() === "" ||
@@ -110,27 +120,32 @@ export default function App() {
       return;
     }
 
-    // Enviar los datos
+    // Enviar los datos del POST
     sendPostRequest();
 
     console.log(`
     Data submitted:
-    name: ${name}
     email: ${email}
     password: ${password}
     confirmPassword: ${confirmPassword}
     role: ${role}
     `);
+
+    setSuccess(true)
+
+    if(success){
+      handleShow()
+    }   
+
   };
 
-  // Mostrar el mensaje de éxito si el estado success es true
-  if (success)
-    return (
-      <div className="registrationForm registrationForm__success">
-        Registered successfully
-      </div>
-    );
 
+
+
+  // Mostrar el mensaje de éxito si el estado success es true
+  // if (success){
+  //   handleShow();
+  // }
 
   // Mostrar el formulario
   return (
@@ -143,19 +158,9 @@ export default function App() {
               <div className="card-header">Registro</div>
               <div className="card-body">
 
-                <form className="ingreso " onSubmit={handleSubmit}>
+
+                <form className="ingreso " onSubmit={handleSubmit} action="/" >
                   {error && <div className="alert alert-danger">{error}</div>}
-                  
-                  {/* Name */}
-                  <label>
-                    Name:
-                    <input
-                      type="text"
-                      name="name"
-                      value={name}
-                      onChange={(e) => setName(e.currentTarget.value)}
-                    />
-                  </label>
 
                   {/* Email */}
                   <label>
@@ -219,12 +224,20 @@ export default function App() {
                   </div>
 
                   <button  
-                  disabled={!agree} 
-                  type="ingresar" 
-                  className="btn btn-outline-light"
-                  >
-                    Ingresar
+                    disabled={!agree} 
+                    type="ingresar" 
+                    className="btn btn-outline-light"
+                    >
+                      Ingresar
                   </button>
+
+                  {/* <button  
+                  onClick={handleShow}
+                    className="btn btn-outline-light"
+                    >
+                     Modal
+                  </button> */}
+                  
                 </form>
 
               </div>
@@ -233,6 +246,19 @@ export default function App() {
 
         </div>
       </div>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <button variant="secondary" onClick={handleClose}>
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
+
     </>
   );
 };
