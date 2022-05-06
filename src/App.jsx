@@ -31,6 +31,23 @@ export default function App() {
             console.log((addrtype[e.target.value])); 
             setRole(addrtype[e.target.value]) 
   }
+
+  // Esto es para el checkbox
+
+  const [agree, setAgree] = useState(false);
+
+  const checkboxHandler = () => {
+    // if agree === true, it will be set to false
+    // if agree === false, it will be set to true
+    setAgree(!agree);
+    // Don't miss the exclamation mark
+  }
+
+  // When the button is clicked
+  const btnHandler = () => {
+    alert('The buttion is clickable!');
+  };
+
   
   // Inicializar el estado de error y éxito
   /* const [error, setError] = React.useState('');*/
@@ -114,6 +131,7 @@ export default function App() {
       </div>
     );
 
+
   // Mostrar el formulario
   return (
     <>
@@ -195,18 +213,16 @@ export default function App() {
                   </label>
 
                   {/* Terminos y Condiciones */}
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-1">
-                        <input type="checkbox"></input>
-                      </div>
-                      <div className="col-11">
-                        Acepto terminos y condiciones
-                      </div>
-                    </div>
+                  <div className="d-flex flex-row justify-content-center text-white my-3">
+                    <input className="mx-2" type="checkbox" id="agree" onChange={checkboxHandler} />
+                    <label htmlFor="agree"> I agree to <b>terms and conditions</b></label>
                   </div>
 
-                  <button type="ingresar" className="btn btn-primary">
+                  <button  
+                  disabled={!agree} 
+                  type="ingresar" 
+                  className="btn btn-outline-light"
+                  >
                     Ingresar
                   </button>
                 </form>
