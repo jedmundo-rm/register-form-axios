@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-import "./App.css"
+import "./App.scss"
 
 let urlApi = "https://get-talent-75b1b-default-rtdb.firebaseio.com/.json";
 
@@ -11,8 +11,6 @@ const pattern =
 
 export default function App() {
 
-  // Cargando la petición a la API
-  const [loading, setLoading] = useState(false);
   // Error
   const [error, setError] = useState(false);
 
@@ -70,7 +68,6 @@ export default function App() {
 
   //sendPostRequest();
 
-
   const handleSubmit = (event) => {
     // Prevenir el comportamiento predeterminado del formulario
     event.preventDefault();
@@ -96,10 +93,7 @@ export default function App() {
       return;
     }
 
-    // Enviar el formulario
-    // ...
-    setLoading(true);
-
+    // Enviar los datos
     sendPostRequest();
 
     console.log(`
@@ -125,13 +119,16 @@ export default function App() {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-0 col-md-2 col-lg-3"></div>
-          <div className="col-12 col-md-8 col-lg-6">
-            <div className="card text-center">
+          <div className="col-12 col-md-12 col-lg-12 d-flex justify-content-center">
+
+            <div className="card text-center" style={{width: "100%", maxWidth: "550px"}}>
               <div className="card-header">Registro</div>
               <div className="card-body">
+
                 <form className="ingreso " onSubmit={handleSubmit}>
-                  {error && <div className="ingreso__error">{error}</div>}
+                  {error && <div className="alert alert-danger">{error}</div>}
+                  
+                  {/* Name */}
                   <label>
                     Name:
                     <input
@@ -141,6 +138,8 @@ export default function App() {
                       onChange={(e) => setName(e.currentTarget.value)}
                     />
                   </label>
+
+                  {/* Email */}
                   <label>
                     Email:
                     <input
@@ -150,6 +149,8 @@ export default function App() {
                       onChange={(e) => setEmail(e.currentTarget.value)}
                     />
                   </label>
+
+                  {/* Password */}
                   <label>
                     Password:
                     <input
@@ -159,12 +160,14 @@ export default function App() {
                       pattern={pattern.toString().slice(1, -1)}
                       onChange={(e) => setPassword(e.currentTarget.value)}
                     />
-                    <p className="alert alert-warning">
+                    <p className="message alert alert-warning">
                       La contrasenia debe contener Minimo 6 y maximo 20
                       caracteres, al menos una mayuscula, un caracter especial y
                       un numero
                     </p>
                   </label>
+
+                  {/* Confirm Password */}
                   <label>
                     Confirm Password:
                     <input
@@ -177,20 +180,21 @@ export default function App() {
                     />
                   </label>
 
+                  {/* Role */}
+                  <label for="role">Choose a Role:
+                    <select
+                        onChange={e => handleAddrTypeChange(e)}
+                        className="browser-default custom-select">
+                        {
+                            Add.map((address, key) => 
+                            <option 
+                            key={key} 
+                            value={key}>{address}</option>)
+                        }
+                    </select >                  
+                  </label>
 
-
-                  <label for="role">Choose a Role:</label>
-                  <select
-                      onChange={e => handleAddrTypeChange(e)}
-                      className="browser-default custom-select">
-                      {
-                          Add.map((address, key) => 
-                          <option 
-                          key={key} 
-                          value={key}>{address}</option>)
-                      }
-                  </select >
-
+                  {/* Terminos y Condiciones */}
                   <div className="container">
                     <div className="row">
                       <div className="col-1">
@@ -202,90 +206,17 @@ export default function App() {
                     </div>
                   </div>
 
-                  <button type="ingresar" className="ingreso__ingresar">
+                  <button type="ingresar" className="btn btn-primary">
                     Ingresar
                   </button>
                 </form>
+
               </div>
             </div>
           </div>
-          <div className="col-0  col-md-2 col-lg-3"></div>
+
         </div>
       </div>
     </>
   );
 };
-
-//   // Inicializar el estado del formulario en blanco
-//   const [name, setName] = React.useState('');
-//   const [email, setEmail] = React.useState('');
-//   const [password, setPassword] = React.useState('');
-//   const [confirmPassword, setConfirmPassword] = React.useState('');
-
-//   // Inicializar el estado de error y éxito
-//   const [error, setError] = React.useState('');
-//   const [success, setSuccess] = React.useState(false);
-
-//   const handleSubmit = (event) => {
-//     // Prevenir el comportamiento predeterminado del formulario
-//     event.preventDefault();
-
-//     // Resetear el estado de error
-//     setError('');
-
-//     // Validar el formulario
-//     if (name.trim() === '' || email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
-//       setError('Please fill in all fields');
-//       return;
-//     }
-
-//     // Asegurarse que las contraseñas coincidan
-//     if (password.trim() !== confirmPassword.trim()) {
-//       setError('Passwords do not match');
-//       return;
-//     }
-
-//     // Enviar el formulario
-//     // ...
-
-//     console.log(`Data submitted:
-//     name: ${name}
-//     email: ${email}
-//     password: ${password}
-//     confirmPassword: ${confirmPassword}`);
-
-//     // Mostrar el mensaje de éxito
-//     setSuccess(true);
-//   }
-
-//   // Mostrar el mensaje de éxito si el estado success es true
-//   if (success)
-//     return <div className="registrationForm registrationForm__success">Registered successfully</div>
-
-//   // Mostrar el formulario
-//   return (
-//     <form className='registrationForm' onSubmit={handleSubmit}>
-//       {error && <div className='registrationForm__error'>{error}</div>}
-//       <label>
-//         Name:
-//         <input type="text" name="name" value={name} onChange={(e) => setName(e.currentTarget.value)} />
-//       </label>
-//       <label>
-//         Email:
-//         <input type="email" name="email" value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
-//       </label>
-//       <label>
-//         Password:
-//         <input type="password" name="password" value={password} onChange={(e) => setPassword(e.currentTarget.value)} />
-//       </label>
-//       <label>
-//         Confirm Password:
-//         <input type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.currentTarget.value)} />
-//       </label>
-//       <button type="submit" className='registrationForm__submit'>Submit</button>
-//     </form >
-//   )
-// };
-
-
-

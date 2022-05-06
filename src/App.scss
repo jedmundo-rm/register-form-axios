@@ -1,0 +1,65 @@
+/* Estilos del formulario base */
+.container{
+  padding: 40px 0;
+  }  
+  
+  .card-body {
+    background-color: #8C52FF!important;
+  
+    .ingreso {
+        /*margin: 1em;*/
+        padding: 2em;
+        border-radius: 0.5em;
+        font-size: normal;
+
+        /* Estilos de las etiquetas */
+        & > label {
+          display: flex;
+          flex-direction: column;
+          color:#fff;
+          width: 100%;
+          align-items: flex-start;
+          font-weight: bold;
+          font-size: 12pt;
+
+          .message{
+            font-size: 9pt;
+          }
+        
+          /* Estilos de los campos de texto */
+          & > input {
+            width: 100%;
+            margin: 0.25em 0;
+            padding: 0.5em;
+            color: #222;
+          }
+
+          & > select {
+            width: 100%;
+            margin: 0.25em 0;
+            padding: 0.5em;
+            color: #222;
+          }
+
+        }
+
+      }
+
+  }
+
+
+    /*checkbox size*/
+    checkbox {
+      width: 20px;
+      height: 20px;
+    }
+    
+
+    
+    /* Estilo del mensaje de éxito */
+    .ingreso__success {
+      color: white;
+      background-color: green;
+      font-size: medium;
+      border-radius: 0.25em;
+    }
