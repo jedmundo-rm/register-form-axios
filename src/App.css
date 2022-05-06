@@ -1,38 +1,75 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Estilos del formulario base */
+.container{
+  padding: 40px 0;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .ingreso {
+      /*margin: 1em;*/
+      padding: 2em;
+    
+      border-radius: 0.5em;
+    
+      font-size: normal;
+    }
+  .card-body {
+    background-color: #8C52FF!important;
+  
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
+    /* Estilos de las etiquetas */
+    .ingreso > label {
+      display: flex;
+      flex-direction: column;
+      color:#fff;
+      width: 100%;
+      align-items: flex-start;
+      font-weight: bold;
+    
+    }
+
+    .ingreso .alert {
+  
+      font-weight: bold;
+      font-size: 8pt;
+    }
+
+    /* Estilos de los campos de texto */
+    .ingreso > label > input {
+      width: 100%;
+      margin: 0.25em 0;
+      padding: 0.5em;
+      color: #222;
+      font-size: 12pt;
+    
+      border-radius: 0.25em;
+    }
+    
+    /* Estilos de los botones */
+    .ingreso__ingresar {
+      width: 200px;
+      margin-top: 1em;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0.5em;
+    
+      cursor: pointer;
+    }
+    /*checkbox size*/
+    checkbox {
+      width: 20px;
+      height: 20px;
+    }
+    
+    /* Estilo del mensaje de error */
+    .ingreso__error {
+      color: white;
+      background-color: red;
+      font-size: medium;
+      border-radius: 0.25em;
+    }
+    
+    /* Estilo del mensaje de éxito */
+    .ingreso__success {
+      color: white;
+      background-color: green;
+      font-size: medium;
+      border-radius: 0.25em;
+    }
